@@ -1,0 +1,15 @@
+if (.Platform$OS.type == "windows") invisible(suppressWarnings(Sys.setlocale("LC_CTYPE", ".UTF-8")))
+options(encoding="UTF-8")
+# 1. Saved-prediction reproduction; no model training.
+cmd <- commandArgs(trailingOnly=FALSE)
+script <- sub("^--file=", "", cmd[grepl("^--file=", cmd)])
+CODE_ROOT <- if(length(script)) dirname(normalizePath(script,winslash="/",mustWork=TRUE)) else normalizePath(".",winslash="/",mustWork=TRUE)
+source(file.path(CODE_ROOT,"code/00_setup/0.1_project_paths.R"))
+source(module_path("io"))
+
+for(m in c("sample_audit","model_audit")) source(module_path(m))
+samples <- read_data("samples.csv")
+write_result(audit_samples(samples),"sample_audit.csv")
+write_result(evaluate_predictions(read_data("predictions.csv"),samples),"auc.csv")
+audit_model_records()
+capture.output(sessionInfo(),file=output_path("sessionInfo_gene_ml.txt"))

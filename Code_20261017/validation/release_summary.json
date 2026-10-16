@@ -1,0 +1,15 @@
+{
+  "release": "2026-10-17",
+  "scope": "dry-lab only",
+  "numbered_chapters": 28,
+  "R_files": 47,
+  "output_tables_verified": 14,
+  "wet_lab_included": false,
+  "demonstrations_included": false,
+  "uploaded": false,
+  "layout": "compact web upload",
+  "loose_file_count": 73,
+  "bundled_input_files": 80,
+  "auto_extraction_checked": true,
+  "core_reproduction_after_extraction": "PASS"
+}

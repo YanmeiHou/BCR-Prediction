@@ -1,0 +1,7 @@
+﻿area,chapters,status
+Gene selection / ML,1.1-1.5,Historical training; saved-record audit tested
+OOB and model tuning,1.6-1.9,Original-score plots and fixed 495-patient retraining tested; nested metrics tested; nested search not rerun
+Clinical/survival/enrichment/immune,2.1-2.13,"Clinical, immune statistics, saved ROC and pooled DCA tested; historical modules explicit"
+Single-cell / virtual knockout,3.1-3.3,Reference-derived workflow; real inputs/settings required; not executed
+Wet-lab / ImageJ / qPCR,Excluded,Per author request
+Leakage / duplication / synthetic demonstration,Excluded,Not part of the manuscript analysis release

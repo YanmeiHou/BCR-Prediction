@@ -1,0 +1,7 @@
+if (.Platform$OS.type == "windows") invisible(suppressWarnings(Sys.setlocale("LC_CTYPE", ".UTF-8")))
+options(encoding="UTF-8")
+cmd <- commandArgs(FALSE)
+script <- sub('^--file=', '', cmd[grepl('^--file=', cmd)])
+CODE_ROOT <- if(length(script)) dirname(normalizePath(script,winslash='/')) else normalizePath('.',winslash='/')
+source(file.path(CODE_ROOT,'code/00_setup/0.1_project_paths.R'),encoding='UTF-8')
+source(project_path('code/02_clinical_enrichment_immune/2.11_Figure2B_ROC.R'),encoding='UTF-8')

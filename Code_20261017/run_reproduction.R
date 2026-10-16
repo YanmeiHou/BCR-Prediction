@@ -1,0 +1,22 @@
+if (.Platform$OS.type == "windows") invisible(suppressWarnings(Sys.setlocale("LC_CTYPE", ".UTF-8")))
+options(encoding="UTF-8")
+# 0. Reproduce bundled small-data analyses across dry-lab modules 1 and 2.
+cmd <- commandArgs(trailingOnly=FALSE)
+script <- sub("^--file=", "", cmd[grepl("^--file=", cmd)])
+CODE_ROOT <- if(length(script)) dirname(normalizePath(script,winslash="/",mustWork=TRUE)) else normalizePath(".",winslash="/",mustWork=TRUE)
+source(file.path(CODE_ROOT,"code/00_setup/0.1_project_paths.R"))
+source(module_path("io"))
+
+for(module in c("io","sample_audit","model_audit","immune_statistics")) source(module_path(module))
+require_packages("metafor")
+samples <- read_data("samples.csv")
+write_result(audit_samples(samples),"sample_audit.csv")
+write_result(evaluate_predictions(read_data("predictions.csv"),samples),"auc.csv")
+audit_model_records()
+immune_statistics(read_data("immune_fractions.csv"),samples)
+meta <- read.csv(output_path("immune_meta.csv"))
+focus <- c("T cells follicular helper","T cells CD8","Plasma cells","Macrophages M2","Dendritic cells resting","T cells regulatory (Tregs)")
+meta <- meta[meta$population=="original_1025" & meta$effect_type=="Cohen_d",]
+write_result(meta[match(focus,meta$cell_type),c("cell_type","k_cohorts","pooled_effect","p_raw")],"Figure3B_raw_p.csv")
+capture.output(sessionInfo(),file=output_path("sessionInfo.txt"))
+cat("Completed saved-data reproduction. Historical training and single-cell runs are separate.\n")

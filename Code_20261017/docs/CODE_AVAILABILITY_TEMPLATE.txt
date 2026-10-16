@@ -1,0 +1,1 @@
+Analysis code is available at [insert the actual repository URL and release tag]. The repository includes numbered R scripts, dependency information, derived inputs for the documented reproduction workflows, and validation notes. Access to external data and third-party resources is described in the repository.
